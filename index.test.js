@@ -37,8 +37,22 @@ describe('./musicians endpoint', () => {
                 name: "Janet Jackson"
             })
             .expect(200)
-        console.log(response.body)
+        //console.log(response.body)
         expect(response.body.name).toBe('Janet Jackson')
       
-    })  
+    }) 
+
+    test('Testing POST', async () => {
+        const result = await request(app)
+            .post('/musicians')
+            .send({
+                name: "Gunna",
+                instrument: "Voice"
+            })
+            .expect(200)
+            const resultData = JSON.parse(result.text)
+            //console.log(resultData)
+        expect(resultData instanceof Musician).toBeTruthy
+        expect(resultData.name).toBe("Gunna")
+    })
 })

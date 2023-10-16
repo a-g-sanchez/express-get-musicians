@@ -5,9 +5,9 @@ const { db } = require("../db/connection")
 
 const port = 3000;
 
-app.use(express.json())
-app.use(express.urlencoded())
 //TODO: Create a GET /musicians route to return all musicians 
+app.use(express.json());
+app.use(express.urlencoded({extended : true}));
 
 app.get('/musicians', async(req, res, next) => {
     try{
@@ -21,12 +21,13 @@ app.get('/musicians', async(req, res, next) => {
     }
 })
 
-app.get('/musicians/:id', async(req, res, next) => {
+//get
+app.get('/musicians/:id', async (req, res) => {
     const id = req.params.id
     try {
         const selectedMusician = await Musician.findByPk(id)
-        if(!selectedMusician){
-            throw new Error('No Musician with that id')
+        if (!selectedMusician) {
+            throw new Error ('No Musician with that id')
         }
         res.json(selectedMusician)
     } catch (error) {
@@ -34,20 +35,37 @@ app.get('/musicians/:id', async(req, res, next) => {
     }
 })
 
-//Put
-app.put('/musicians/:id', async(req, res, next) => {
-    const id = req.params.id;
+//put
+app.put('/musicians/:id', async (req, res, next) => {
+    const id = req.params.id
     const musician = await Musician.findByPk(id)
     try {
         const updatedMusician = await musician.update(req.body)
-        if(!updatedMusician) {
-            throw new Error('Musician not updated')
-        } 
+        if (!updatedMusician) {
+            throw new Error ('Musician was not updated')
+        }
         res.json(updatedMusician)
     } catch (error) {
-         next(error)
+        next(error)
     }
 })
+
+//post
+app.post('/musicians', async (req, res, next) => {
+    try {
+        const newMusician = await Musician.create(req.body)
+        if (!newMusician) {
+            throw new Error ('Musician not created')
+        }
+        res.send(newMusician)
+    } catch (error) {
+        next(error)
+    }
+})
+
+
+
+
 
 
 
