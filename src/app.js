@@ -19,6 +19,18 @@ app.get('/musicians', async(req, res, next) => {
     }
 })
 
+app.get('/musicians/:id', async(req, res, next) => {
+    const id = req.params.id
+    try {
+        const selectedMusician = await Musician.findByPk(id)
+        if(!selectedMusician){
+            throw new Error('No Musician with that id')
+        }
+        res.json(selectedMusician)
+    } catch (error) {
+        next(error)
+    }
+})
 
 
 
