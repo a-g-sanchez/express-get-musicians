@@ -16,12 +16,19 @@ describe('./musicians endpoint', () => {
     test('Testing GET request', async() => {
         const response = await request(app).get('/musicians')
         const responseData = JSON.parse(response.text)
-        console.log(responseData)
+        // console.log(responseData)
         expect(response.statusCode).toBe(200)
         expect(responseData.length).toBe(3)
     })
     
-    
+    test('Testing GET by id', async() => {
+        const response = await request(app).get('/musicians/2')
+        const responseData = JSON.parse(response.text)
+        // console.log(responseData)
+        expect(response.statusCode).toBe(200)
+        expect(responseData instanceof Musician).toBeTruthy
+        expect(responseData.name).toBe("Drake")
+    })
 
 
     
