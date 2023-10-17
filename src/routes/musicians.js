@@ -2,6 +2,7 @@ const { Musician } = require('../../models')
 const express = require('express')
 const router = express.Router()
 
+//get
 router.get("/", async (req, res, next) => {
     try {
       const musicians = await Musician.findAll();
@@ -14,7 +15,7 @@ router.get("/", async (req, res, next) => {
     }
   });
   
-  //get
+  //get by id
   router.get("/:id", async (req, res, next) => {
     const id = req.params.id;
     try {
@@ -57,7 +58,6 @@ router.get("/", async (req, res, next) => {
   });
   
   //delete
-  
   router.delete("/:id", async (req, res, next) => {
     try {
       const id = req.params.id;
