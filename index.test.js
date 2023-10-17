@@ -8,7 +8,7 @@ const { db } = require("./db/connection");
 const { Musician } = require("./models/index");
 const app = require("./src/app");
 const seedMusician = require("./seedData");
-const { describe, test, expect } = require("@jest/globals");
+const { describe, test, expect, beforeAll } = require("@jest/globals");
 const exp = require("constants");
 
 describe("./musicians endpoint", () => {
@@ -16,7 +16,7 @@ describe("./musicians endpoint", () => {
   test("Testing GET request", async () => {
     const response = await request(app).get("/musicians");
     const responseData = JSON.parse(response.text);
-    //console.log(responseData)
+    // console.log(responseData)
     expect(response.statusCode).toBe(200);
     expect(responseData.length).toBe(3);
   });

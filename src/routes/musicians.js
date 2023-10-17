@@ -15,7 +15,7 @@ router.get("/", async (req, res, next) => {
   });
   
   //get
-  router.get("/:id", async (req, res) => {
+  router.get("/:id", async (req, res, next) => {
     const id = req.params.id;
     try {
       const selectedMusician = await Musician.findByPk(id);
