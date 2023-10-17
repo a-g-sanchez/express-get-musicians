@@ -8,7 +8,7 @@ router.get("/", async (req, res, next) => {
       if (!musicians) {
         throw new Error("No Musicians found");
       }
-      res.json(musicians);
+      res.send(musicians);
     } catch (err) {
       next(err);
     }
@@ -22,7 +22,7 @@ router.get("/", async (req, res, next) => {
       if (!selectedMusician) {
         throw new Error("No Musician with that id");
       }
-      res.json(selectedMusician);
+      res.send(selectedMusician);
     } catch (error) {
       next(error);
     }
@@ -37,7 +37,7 @@ router.get("/", async (req, res, next) => {
       if (!updatedMusician) {
         throw new Error("Musician was not updated");
       }
-      res.json(updatedMusician);
+      res.send(updatedMusician);
     } catch (error) {
       next(error);
     }
