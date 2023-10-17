@@ -44,7 +44,7 @@ router.get("/", async (req, res, next) => {
   });
   
   //post
-  router.post("/musicians", async (req, res, next) => {
+  router.post("/", async (req, res, next) => {
     try {
       const newMusician = await Musician.create(req.body);
       if (!newMusician) {
