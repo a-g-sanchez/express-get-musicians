@@ -8,4 +8,6 @@ const syncSeed = async () => {
     seedBand.map(band => Band.create(band));
 }
 
+
 syncSeed();
+module.exports = syncSeed
