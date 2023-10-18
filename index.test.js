@@ -11,6 +11,7 @@ const seedMusician = require("./seedData");
 const { describe, test, expect } = require("@jest/globals");
 const exp = require("constants");
 
+
 describe("./musicians endpoint", () => {
   // Write your tests here
   test("Testing GET request", async () => {
@@ -60,3 +61,4 @@ describe("./musicians endpoint", () => {
     expect(result.body.name).toBe("Drake");
   });
 });
+
