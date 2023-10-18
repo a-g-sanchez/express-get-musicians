@@ -51,9 +51,22 @@ describe("./musicians endpoint", () => {
       })
       .expect(200);
     const resultData = JSON.parse(result.text);
-    //console.log(resultData)
-    expect(resultData instanceof Musician).toBeTruthy;
-    expect(resultData.name).toBe("Gunna");
+    // console.log(resultData)
+    // expect(resultData instanceof Musician).toBeTruthy;
+    // expect(resultData.name).toBe("Gunna");
+    expect(Array.isArray(resultData)).toBe(true);
+  });
+
+  test("Testing POST failing", async () => {
+    const result = await request(app)
+      .post("/musicians")
+      .send({
+        name: "Beyonce",
+        instrument: "",
+      })
+    const resultData = JSON.parse(result.text);
+    expect(resultData).toHaveProperty('errors')
+    expect(Array.isArray(resultData.errors)).toBe(true);
   });
 
   test("Testing DELETE", async () => {
