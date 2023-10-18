@@ -31,11 +31,11 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:bandId/:musicianId', async (req, res, next) => {
     const bandId = req.params.bandId
     const musicianId = req.params.musicianId
-        const oneBand = await Band.findByPk(bandId, {include: Musician})
-        const musician = await Musician.findByPk(musicianId)
-        await oneBand.addMusicians(musician)
-        const getBandWithMusician = await oneBand.getMusicians()
-        res.send(getBandWithMusician)
+    const oneBand = await Band.findByPk(bandId, {include: Musician})
+    const musician = await Musician.findByPk(musicianId)
+    await oneBand.addMusicians(musician)
+    const getBandWithMusician = await oneBand.getMusicians()
+    res.send(getBandWithMusician)
 })
 
 module.exports = router

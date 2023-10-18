@@ -36,11 +36,26 @@ describe("./musicians endpoint", () => {
       .put("/musicians/1")
       .send({
         name: "Janet Jackson",
+        instrument: "violin"
       })
       .expect(200);
     //console.log(response.body)
     expect(response.body.name).toBe("Janet Jackson");
   });
+
+  test("Testing PUT name length", async () => {
+    const response = await request(app)
+    .put("/musicians/3")
+    .send({
+      name: "P",
+      instrument: "yooo"
+    })
+    expect(response.statusCode).toBe(500)
+    //check length
+    //check for error message
+    //expect(response.body).toHaveProperty("errors")
+    //expect(Array.isArray(response.body.errors)).toBe(true)
+  })
 
   test("Testing POST", async () => {
     const result = await request(app)

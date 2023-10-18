@@ -2,6 +2,7 @@ const express = require("express");
 const musiciansRouter = express.Router();
 const Musician = require("../models/Musician");
 const { check, validationResult } = require("express-validator");
+const { lengthChecker } = require("../middleware")
 
 //get
 musiciansRouter.get("/:id", async (req, res, next) => {
@@ -30,15 +31,28 @@ musiciansRouter.get("/", async (req, res, next) => {
 });
 
 //put
-musiciansRouter.put("/:id", async (req, res, next) => {
+musiciansRouter.put(
+  "/:id",
+  [
+    lengthChecker
+    //check("name").not().isEmpty().trim(),
+    //check("instrument").not().isEmpty().trim()
+   // express isLength
+  ],
+  async (req, res, next) => {
   const id = req.params.id;
   const musician = await Musician.findByPk(id);
   try {
-    const updatedMusician = await musician.update(req.body);
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+      res.json({errors: errors.array()})
+    } else {
+      const updatedMusician = await musician.update(req.body);
     if (!updatedMusician) {
       throw new Error("Musician was not updated");
     }
     res.send(updatedMusician);
+    }
   } catch (error) {
     next(error);
   }
@@ -50,6 +64,7 @@ musiciansRouter.post(
   [
     check("name").not().isEmpty().trim(),
     check("instrument").not().isEmpty().trim(),
+    //lengthChecker
   ],
   async (req, res, next) => {
     try {
